@@ -69,4 +69,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
              }
          });
      }
+     public void actualizar(PersonaDTO persona, int id) {
+         Retrofit retrofit =  getRetrofitInstance();
+         PersonaClient client = retrofit.create(PersonaClient.class);
+         Call<CustomResponse<RespuestaPersona>> response =client.actualizar(Parametro.CONTENT_TYPE_APPLICATION_JSON,persona,id);
+         response.enqueue(new Callback<CustomResponse<RespuestaPersona>>() {
+             @Override
+             public void onResponse(Call<CustomResponse<RespuestaPersona>> call, Response<CustomResponse<RespuestaPersona>> response) {
+
+             }
+
+             @Override
+             public void onFailure(Call<CustomResponse<RespuestaPersona>> call, Throwable t) {
+                 Toast.makeText(getContext(), "Error de comunicación: "+ t.getMessage(), Toast.LENGTH_LONG).show();
+             }
+         });
+     }
+
+     public void eliminar( int id) {
+         Retrofit retrofit =  getRetrofitInstance();
+         PersonaClient client = retrofit.create(PersonaClient.class);
+         Call<CustomResponse<RespuestaPersona>> response =client.eliminar(id);
+         response.enqueue(new Callback<CustomResponse<RespuestaPersona>>() {
+             @Override
+             public void onResponse(Call<CustomResponse<RespuestaPersona>> call, Response<CustomResponse<RespuestaPersona>> response) {
+
+             }
+
+             @Override
+             public void onFailure(Call<CustomResponse<RespuestaPersona>> call, Throwable t) {
+                 Toast.makeText(getContext(), "Error de comunicación: "+ t.getMessage(), Toast.LENGTH_LONG).show();
+             }
+         });
+     }
  }

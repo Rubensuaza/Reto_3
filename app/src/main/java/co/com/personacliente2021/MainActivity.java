@@ -21,12 +21,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        PersonaServiceImpl personaService = new PersonaServiceImpl(this);
-        personaService.getPersona(listViewPersonas);
+        loadInformation();
+
     }
 
     public void goToRegistroPersona(View view) {
         Intent intent = new Intent(MainActivity.this,RegistroPersonaActivity.class);
         startActivity(intent);
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadInformation();
+    }
+
+    private void loadInformation() {
+        PersonaServiceImpl personaService = new PersonaServiceImpl(this);
+        personaService.getPersona(listViewPersonas);
+    }
+
 }

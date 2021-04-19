@@ -1,7 +1,9 @@
 package co.com.personacliente2021;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +45,15 @@ public class RegistroPersonaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registro_persona);
         ButterKnife.bind(this);
         persona = new PersonaDTO();
+        persona= (PersonaDTO) getIntent().getSerializableExtra("persona");
+        if(persona!=null){
+            spinnerTipoDocumento.setSelection(persona.getIdTipoDocumento());
+            txtDocumento.setText(persona.getNumeroDocumento());
+            txtNombre.setText(persona.getNombre());
+            txtApellido.setText(persona.getApellido());
+        }
+
+
         ActionBarUtil.getInstance(this, true).setToolBar(getString(R.string.registro_persona), getString(R.string.insertar));
         listarTiposDocumentos();
         onSelectItemSpinner();
@@ -79,9 +92,60 @@ public class RegistroPersonaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void guardarInformacion() {
-        PersonaServiceImpl personaService = new PersonaServiceImpl(this);
+
+
+    private void guardarInformacion(){
+        if(persona!=null){
         persona.setIdTipoDocumento(documentoSeleccionado);
-        personaService.insertar(persona);
+        persona.setNumeroDocumento(txtDocumento.getText().toString());
+        persona.setNombre(txtNombre.getText().toString());
+        persona.setApellido(txtApellido.getText().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegistroPersonaActivity.this);
+        builder.setCancelable(false);
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.confirm_message_guardar_informacion);
+        builder.setPositiveButton(R.string.confirm_action, (dialog, which) ->  actualizarInformacion());
+        builder.setNegativeButton(R.string.cancelar, (dialog, which) ->  dialog.cancel() );
+        AlertDialog dialog = builder.create();
+        dialog.show();}
+        else{
+            PersonaDTO newPersona=new PersonaDTO();
+            newPersona.setIdTipoDocumento(documentoSeleccionado);
+            newPersona.setNumeroDocumento(txtDocumento.getText().toString());
+            newPersona.setNombre(txtNombre.getText().toString());
+            newPersona.setApellido(txtApellido.getText().toString());
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegistroPersonaActivity.this);
+            builder.setCancelable(false);
+            builder.setTitle(R.string.confirm);
+            builder.setMessage(R.string.confirm_message_guardar_informacion);
+            builder.setPositiveButton(R.string.confirm_action, (dialog, which) ->  insertarInformacion(newPersona) );
+            builder.setNegativeButton(R.string.cancelar, (dialog, which) ->  dialog.cancel() );
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+    }
+
+    private void insertarInformacion(PersonaDTO newPersona){
+        PersonaServiceImpl personaService = new PersonaServiceImpl(this);
+        personaService.insertar(newPersona);
+        Intent intent=new Intent(RegistroPersonaActivity.this,MainActivity.class );
+        this.startActivity(intent);
+
+    }
+
+    private void actualizarInformacion(){
+        PersonaServiceImpl personaService = new PersonaServiceImpl(this);
+        personaService.actualizar(persona,persona.getIdPersona());
+        Intent intent=new Intent(RegistroPersonaActivity.this,MainActivity.class );
+        this.startActivity(intent);
+    }
+
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
