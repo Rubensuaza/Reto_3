@@ -14,4 +14,7 @@
     <string name="confirm_action">Aceptar</string>
     <string name="cancelar">Cancelar</string>
     <string name="seleccione">-- Seleccione --</string>
+    <string name="digite_usuario">Nombre Usuario</string>
+    <string name="digite_password">Password</string>
+    <string name="share_preferemnce">share preference</string>
 </resources>
