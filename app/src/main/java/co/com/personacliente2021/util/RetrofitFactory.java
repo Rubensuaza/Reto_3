@@ -1,6 +1,8 @@
 package co.com.personacliente2021.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitFactory {
+
 
     private final OkHttpClient simpleClient = new OkHttpClient.Builder()
             .readTimeout(Parametro.CONNECTION_TIMEOUT_RETROFIT, TimeUnit.SECONDS)
