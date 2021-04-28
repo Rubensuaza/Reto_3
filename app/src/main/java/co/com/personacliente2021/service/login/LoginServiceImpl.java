@@ -38,10 +38,10 @@ public class LoginServiceImpl extends RetrofitFactory {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody responseBody=response.body();
-                if(response != null){
+                if(responseBody != null){
                     Gson gson=new Gson();
                     try{
-                        LoginResponse loginResponse=gson.fromJson(responseBody.toString(),(Type) LoginResponse.class);
+                        LoginResponse loginResponse=gson.fromJson(responseBody.string(),(Type) LoginResponse.class);;
                         setToken(loginResponse);
                         ((LoginActivity) getContext()).redirect();
                     }catch (Exception e){

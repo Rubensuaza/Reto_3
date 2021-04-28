@@ -4,7 +4,9 @@ import android.content.Context;
 
 import java.util.concurrent.TimeUnit;
 
+import co.com.personacliente2021.R;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
