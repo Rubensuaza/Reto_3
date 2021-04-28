@@ -26,7 +26,7 @@ public class TipoDocumentoServiceImpl extends RetrofitFactory {
 
 
     public void getTipoDocumento(Spinner spinner){
-        Retrofit retrofit =  getRetrofitInstance();
+        Retrofit retrofit =  getTokenInstance();
         TipoDocumentoClient client = retrofit.create(TipoDocumentoClient.class);
         Call<List<TipoDocumento>> response = client.getTipoDocumento();
         response.enqueue(new Callback<List<TipoDocumento>>() {

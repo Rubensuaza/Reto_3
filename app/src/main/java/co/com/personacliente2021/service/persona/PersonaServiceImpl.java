@@ -33,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
     public void getPersona(ListView listViewPersonas){
-        Retrofit retrofit =  getRetrofitInstance();
+        Retrofit retrofit =  getTokenInstance();
         PersonaClient client = retrofit.create(PersonaClient.class);
         Call<List<Persona>> response = client.getPersonas();
         response.enqueue(new Callback<List<Persona>>() {
@@ -54,7 +54,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
     }
 
      public void insertar(PersonaDTO persona) {
-         Retrofit retrofit =  getRetrofitInstance();
+         Retrofit retrofit =  getTokenInstance();
          PersonaClient client = retrofit.create(PersonaClient.class);
          Call<CustomResponse<RespuestaPersona>> response =client.insertar(Parametro.CONTENT_TYPE_APPLICATION_JSON,persona);
          response.enqueue(new Callback<CustomResponse<RespuestaPersona>>() {
@@ -70,7 +70,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
          });
      }
      public void actualizar(PersonaDTO persona, int id) {
-         Retrofit retrofit =  getRetrofitInstance();
+         Retrofit retrofit =  getTokenInstance();
          PersonaClient client = retrofit.create(PersonaClient.class);
          Call<CustomResponse<RespuestaPersona>> response =client.actualizar(Parametro.CONTENT_TYPE_APPLICATION_JSON,persona,id);
          response.enqueue(new Callback<CustomResponse<RespuestaPersona>>() {
@@ -87,7 +87,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
      }
 
      public void eliminar( int id) {
-         Retrofit retrofit =  getRetrofitInstance();
+         Retrofit retrofit =  getTokenInstance();
          PersonaClient client = retrofit.create(PersonaClient.class);
          Call<CustomResponse<RespuestaPersona>> response =client.eliminar(id);
          response.enqueue(new Callback<CustomResponse<RespuestaPersona>>() {

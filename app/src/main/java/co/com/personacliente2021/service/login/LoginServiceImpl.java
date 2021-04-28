@@ -31,7 +31,7 @@ public class LoginServiceImpl extends RetrofitFactory {
     }
 
     public void login(String username, String password){
-        Retrofit retrofit=getRetrofitInstance();
+        Retrofit retrofit=getAuthInstance();
         LoginClient loginClient=retrofit.create(LoginClient.class);
         Call<ResponseBody> response=loginClient.login(basic,username,password,"password");
         response.enqueue(new Callback<ResponseBody>() {
